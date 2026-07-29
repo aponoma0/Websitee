@@ -1,0 +1,45 @@
+/*
+This file holds the global Tailwind import and site-wide base styles.
+Edit it when the overall page background, font stack, or base colors change.
+Copy the background pattern here when you add another single-page site.
+*/
+
+@import "tailwindcss";
+
+:root {
+  color: #0f172a;
+  background: #f6f1e8;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(247, 178, 103, 0.2), transparent 28%),
+    radial-gradient(circle at top right, rgba(142, 202, 230, 0.18), transparent 24%),
+    linear-gradient(180deg, #f7f2e9 0%, #f6f1e8 46%, #efe6d6 100%);
+}
+
+#__next {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(15, 23, 42, 0.16);
+}

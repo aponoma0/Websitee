@@ -406,14 +406,11 @@ Set these values in Dokploy instead of editing `docker-compose.yml`:
 | `COOKIE_SECRET` | Secret key for signing cookies — use a long random string |
 | `DB_PATH` | SQLite path inside the backend container |
 | `FRONTEND_ORIGIN` | Public URL of the app, e.g. `https://myapp.example.com` |
-| `VITE_BACKEND_URL` | Frontend API base path for the built app; keep it at `/api` |
 | `APP_MODE` | `prod` for production, `dev` to enable demo accounts |
 
 Important notes:
 
-- The frontend API base path is still a build-time value. If `VITE_BACKEND_URL` changes, rebuild the frontend image.
 - Internal container ports stay fixed at `8080` and `8081`.
-- For this template, keep `VITE_BACKEND_URL=/api` in both local Docker testing and production.
 - The base `docker-compose.yml` is intentionally platform-safe for `tlfpaas`: it uses `expose`, route labels, and no local-only port publishing.
 
 ### Start the Docker stack
@@ -426,7 +423,7 @@ docker compose --env-file .docker.env -f docker-compose.yml up -d --build
 
 That starts the frontend and backend containers. It does not add public one-domain routing by itself.
 
-For local same-origin browser testing, the repo also includes `docker-compose.local.yml`, which adds a small gateway service and the local frontend build arg. The visible `make front-docker` and `make test-e2e-docker` commands use that local overlay automatically.
+For local same-origin browser testing, the repo also includes `docker-compose.local.yml`, which adds a small gateway service. The visible `make front-docker` and `make test-e2e-docker` commands use that local overlay automatically.
 
 ### Recommended production routing
 

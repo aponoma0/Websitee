@@ -86,8 +86,8 @@ Frontend:
 
 - keep nginx listening on `8080`;
 - keep `USER nginx` in the final stage;
-- keep `VITE_BACKEND_URL` as the only current frontend build-time variable;
-- keep `VITE_BACKEND_URL=/api` for tlfpaas and same-origin production.
+- serve the static Next.js export from `out/`;
+- keep the frontend build static and same-origin.
 
 Backend:
 
@@ -111,21 +111,11 @@ Current important values:
 APP_MODE=dev
 DB_PATH=/data/app.sqlite3
 FRONTEND_ORIGIN=http://localhost:5105
-VITE_BACKEND_URL=/api
 ```
 
 `COOKIE_SECRET=local-docker-secret` is only a local placeholder. In tlfpaas
 production, configure `COOKIE_SECRET` in the student Secrets UI and click
 `Redeploy now`.
-
-If adding frontend build-time config, use only public client-visible prefixes:
-
-```text
-VITE_
-NEXT_PUBLIC_
-NUXT_PUBLIC_
-PUBLIC_
-```
 
 Never put API tokens, passwords, private keys, or real cookie secrets in
 `.docker.env.example`.
@@ -194,7 +184,6 @@ These values are part of the deployment contract:
 
 - frontend port: `8080`;
 - backend port: `8081`;
-- frontend API base path: `VITE_BACKEND_URL=/api`;
 - backend API route prefix: `/api/...`;
 - backend WebSocket path: `/ws`;
 - backend data path: `/data/app.sqlite3`;

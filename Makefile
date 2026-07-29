@@ -19,15 +19,15 @@ LAN_FRONTEND_URL := http://$(WIFI_IP):$(LAN_FRONTEND_PORT)
 LAN_BACKEND_URL := http://$(WIFI_IP):$(LAN_BACKEND_PORT)
 AGENT_BACKEND_URL := http://$(AGENT_BACKEND_HOST):$(AGENT_BACKEND_PORT)
 AGENT_FRONTEND_URL := http://$(AGENT_FRONTEND_HOST):$(AGENT_FRONTEND_PORT)
-AGENT_RUNTIME_DIR_ABS := $(shell python3 -c 'from pathlib import Path; print(Path("$(AGENT_RUNTIME_DIR)").resolve())')
+AGENT_RUNTIME_DIR_ABS := $(shell uv run python -c 'from pathlib import Path; print(Path("$(AGENT_RUNTIME_DIR)").resolve())')
 AGENT_COOKIE_JAR := $(AGENT_RUNTIME_DIR_ABS)/cookies.txt
 AGENT_BACKEND_PID := $(AGENT_RUNTIME_DIR_ABS)/backend.pid
 AGENT_FRONTEND_PID := $(AGENT_RUNTIME_DIR_ABS)/frontend.pid
 ALOGIN_USER := $(if $(filter command line,$(origin USER)),$(USER),user)
 ALOGIN_PASS := $(if $(filter command line,$(origin PASS)),$(PASS),user)
 APOST_BODY := $(if $(filter command line,$(origin BODY)),$(BODY),{})
-PY_RUNTIME_DEPS := $(shell python3 -c 'import re, tomllib, pathlib; data = tomllib.loads(pathlib.Path("pyproject.toml").read_text()); print(" ".join(re.match(r"[A-Za-z0-9._-]+", dep).group(0) for dep in data["project"]["dependencies"]))')
-PY_DEV_DEPS := $(shell python3 -c 'import re, tomllib, pathlib; data = tomllib.loads(pathlib.Path("pyproject.toml").read_text()); print(" ".join(re.match(r"[A-Za-z0-9._-]+", dep).group(0) for dep in data["dependency-groups"]["dev"]))')
+PY_RUNTIME_DEPS := $(shell uv run python -c 'import re, tomllib, pathlib; data = tomllib.loads(pathlib.Path("pyproject.toml").read_text()); print(" ".join(re.match(r"[A-Za-z0-9._-]+", dep).group(0) for dep in data["project"]["dependencies"]))')
+PY_DEV_DEPS := $(shell uv run python -c 'import re, tomllib, pathlib; data = tomllib.loads(pathlib.Path("pyproject.toml").read_text()); print(" ".join(re.match(r"[A-Za-z0-9._-]+", dep).group(0) for dep in data["dependency-groups"]["dev"]))')
 CHECK_LOCAL_ENV = @test -f .env || (echo "Local config file .env was not found. Run make setup first."; exit 1)
 CHECK_DOCKER_ENV = @test -f .docker.env || (echo "Docker config file .docker.env was not found. Run make setup first."; exit 1)
 CHECK_AGENT_ENV = @test -f .agent.env || (echo "Agent config file .agent.env was not found. Run make setup first."; exit 1)
@@ -73,7 +73,7 @@ back-once:
 
 front:
 	$(CHECK_LOCAL_ENV)
-	cd frontend && VITE_BACKEND_URL=/api VITE_DEV_PROXY_TARGET=$(LOCAL_BACKEND_URL) npm run dev -- --host $(FRONTEND_BIND_HOST) --port $(FRONTEND_PORT)
+	cd frontend && npm run dev -- --hostname $(FRONTEND_BIND_HOST) --port $(FRONTEND_PORT)
 
 open:
 	$(CHECK_LOCAL_ENV)
@@ -87,7 +87,7 @@ back-lan:
 front-lan:
 	$(CHECK_LOCAL_ENV)
 	$(CHECK_WIFI_IP)
-	cd frontend && VITE_BACKEND_URL=/api VITE_DEV_PROXY_TARGET=$(LAN_BACKEND_URL) npm run dev -- --host 0.0.0.0 --port $(LAN_FRONTEND_PORT)
+	cd frontend && npm run dev -- --hostname 0.0.0.0 --port $(LAN_FRONTEND_PORT)
 
 open-lan:
 	$(CHECK_LOCAL_ENV)
@@ -117,7 +117,7 @@ afront:
 	$(CHECK_AGENT_ENV)
 	mkdir -p "$(AGENT_RUNTIME_DIR_ABS)"
 	./scripts/kill_port.sh "$(AGENT_FRONTEND_PORT)"
-	cd frontend && echo $$$$ > "$(AGENT_FRONTEND_PID)" && exec env VITE_BACKEND_URL=/api VITE_DEV_PROXY_TARGET=$(AGENT_BACKEND_URL) npm run dev -- --host $(AGENT_FRONTEND_HOST) --port $(AGENT_FRONTEND_PORT)
+	cd frontend && echo $$$$ > "$(AGENT_FRONTEND_PID)" && exec npm run dev -- --hostname $(AGENT_FRONTEND_HOST) --port $(AGENT_FRONTEND_PORT)
 
 aopen:
 	$(CHECK_AGENT_ENV)
@@ -144,7 +144,7 @@ abrowser:
 alogin:
 	$(CHECK_AGENT_ENV)
 	mkdir -p "$(AGENT_RUNTIME_DIR_ABS)"
-	BODY="$$(python3 -c 'import json, sys; print(json.dumps({"username": sys.argv[1], "password": sys.argv[2]}))' "$(ALOGIN_USER)" "$(ALOGIN_PASS)")"; \
+	BODY="$$(uv run python -c 'import json, sys; print(json.dumps({"username": sys.argv[1], "password": sys.argv[2]}))' "$(ALOGIN_USER)" "$(ALOGIN_PASS)")"; \
 	curl -sS -c "$(AGENT_COOKIE_JAR)" -b "$(AGENT_COOKIE_JAR)" -H "Origin: $(AGENT_FRONTEND_URL)" -H "Content-Type: application/json" -X POST "$(AGENT_BACKEND_URL)/api/auth/login" --data "$$BODY"
 
 apost:
@@ -164,7 +164,7 @@ asql:
 
 adb-path:
 	$(CHECK_AGENT_ENV)
-	python3 -c 'from pathlib import Path; print(Path("$(AGENT_DB_PATH)").resolve())'
+	uv run python -c 'from pathlib import Path; print(Path("$(AGENT_DB_PATH)").resolve())'
 
 back-docker:
 	$(CHECK_DOCKER_ENV)

@@ -10,15 +10,12 @@ RUN npm ci
 
 COPY . .
 
-ARG VITE_BACKEND_URL
-ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
-
 RUN npm run build
 
 FROM nginx:1.29.5-alpine-slim AS runtime
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/out /usr/share/nginx/html
 
 RUN mkdir -p /tmp/nginx /var/cache/nginx && \
     chown -R nginx:nginx /tmp/nginx /var/cache/nginx /usr/share/nginx/html

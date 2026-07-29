@@ -2,11 +2,6 @@
 # Edit this file when the local Docker browser flow changes. Do not use it as the base tlfpaas compose.
 # Copy this file pattern when you add another local-only Docker helper service.
 services:
-  frontend:
-    build:
-      args:
-        VITE_BACKEND_URL: ${VITE_BACKEND_URL}
-
   gateway:
     image: caddy:2.8.4-alpine
     depends_on:

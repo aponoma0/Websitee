@@ -25,7 +25,6 @@ set +a
 : "${E2E_APP_DEBUG_LOGS:?Missing E2E_APP_DEBUG_LOGS in .docker.env.}"
 : "${E2E_COOKIE_SECRET:?Missing E2E_COOKIE_SECRET in .docker.env.}"
 : "${E2E_FRONTEND_ORIGIN:?Missing E2E_FRONTEND_ORIGIN in .docker.env.}"
-: "${E2E_VITE_BACKEND_URL:?Missing E2E_VITE_BACKEND_URL in .docker.env.}"
 : "${E2E_GATEWAY_PORT:?Missing E2E_GATEWAY_PORT in .docker.env.}"
 : "${E2E_FRONTEND_URL:?Missing E2E_FRONTEND_URL in .docker.env.}"
 
@@ -35,7 +34,6 @@ export APP_MODE="${E2E_APP_MODE}"
 export APP_DEBUG_LOGS="${E2E_APP_DEBUG_LOGS}"
 export COOKIE_SECRET="${E2E_COOKIE_SECRET}"
 export FRONTEND_ORIGIN="${E2E_FRONTEND_ORIGIN}"
-export VITE_BACKEND_URL="${E2E_VITE_BACKEND_URL}"
 export GATEWAY_PORT="${E2E_GATEWAY_PORT}"
 export PW_DOCKER_FRONTEND_URL="${E2E_FRONTEND_URL}"
 

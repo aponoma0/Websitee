@@ -1,7 +1,29 @@
-// This file links the frontend TypeScript config files together.
-// Edit this file when the frontend project needs another TS config reference.
-// Do not copy this file. Change it when the whole TS config layout changes.
+/*
+This file configures TypeScript for the Next.js frontend.
+Edit it when module paths, strictness, or Next build type-checking needs change.
+Copy it when you add another small TypeScript frontend in this repo.
+*/
+
 {
-  "files": [],
-  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
