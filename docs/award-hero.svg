@@ -1,0 +1,40 @@
+<!--
+This file is a local placeholder visual for the landing page hero.
+Edit it when the public hero artwork changes.
+Copy it only when another static page needs a simple placeholder image.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-label="Abstract studio scene">
+  <defs>
+    <linearGradient id="wall" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f4f0e8"/>
+      <stop offset="0.42" stop-color="#d7e0dc"/>
+      <stop offset="1" stop-color="#3f736d"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#d3342f"/>
+      <stop offset="1" stop-color="#891f1b"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f1c84b"/>
+      <stop offset="1" stop-color="#b88d20"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#wall)"/>
+  <rect x="0" y="730" width="1600" height="470" fill="#101010"/>
+  <rect x="180" y="170" width="470" height="610" fill="#101010"/>
+  <rect x="225" y="215" width="380" height="520" fill="#f4f0e8"/>
+  <rect x="270" y="260" width="290" height="155" fill="url(#red)"/>
+  <rect x="270" y="455" width="290" height="235" fill="#3f736d"/>
+  <rect x="780" y="130" width="420" height="660" fill="#f4f0e8"/>
+  <rect x="830" y="185" width="320" height="220" fill="#101010"/>
+  <rect x="830" y="445" width="320" height="290" fill="url(#gold)"/>
+  <rect x="1180" y="505" width="245" height="330" fill="url(#red)"/>
+  <rect x="1040" y="760" width="440" height="64" fill="#f4f0e8"/>
+  <rect x="1020" y="824" width="480" height="64" fill="#d3342f"/>
+  <rect x="1000" y="888" width="520" height="64" fill="#f1c84b"/>
+  <circle cx="1280" cy="285" r="130" fill="#101010"/>
+  <circle cx="1280" cy="285" r="82" fill="#f4f0e8"/>
+  <path d="M165 860h650v72H165z" fill="#f4f0e8"/>
+  <path d="M165 965h425v54H165z" fill="#3f736d"/>
+  <path d="M165 1048h545v54H165z" fill="#d3342f"/>
+</svg>

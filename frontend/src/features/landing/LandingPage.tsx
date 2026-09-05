@@ -5,7 +5,6 @@ Copy this file when you need another single-page marketing layout.
 */
 
 import React from "react";
-import Link from "next/link";
 import { FeatureCard, Metric, SectionHeading, ShowcasePanel, TestimonialCard, WorkTile } from "./landing-components";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH?.trim() || "";
@@ -64,10 +63,10 @@ export function LandingPage() {
 
         <div className="relative mx-auto flex min-h-[88svh] max-w-7xl flex-col px-5 py-5 sm:px-8 lg:px-10">
           <header className="flex items-center justify-between border-b border-white/20 pb-5">
-            <Link href="/" className="flex items-center gap-3">
+            <a className="flex items-center gap-3" href={basePath ? `${basePath}/` : "/"}>
               <span className="grid h-10 w-10 place-items-center border border-white/35 bg-white text-sm font-black text-[#101010]">AW</span>
               <span className="text-sm font-semibold uppercase">Award Studio</span>
-            </Link>
+            </a>
 
             <nav className="hidden items-center gap-8 text-sm text-white/78 md:flex">
               <a className="transition hover:text-white" href="#work">
