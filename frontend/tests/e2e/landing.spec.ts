@@ -10,29 +10,29 @@ test("landing page renders on desktop", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1200 });
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { name: "A landing page that feels calm, clear, and premium." })).toBeVisible();
-  await expect(page.getByTestId("hero-mockup")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Start a project" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Award-winning landing page" })).toBeVisible();
+  await expect(page.getByTestId("hero-metrics")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Build the page" })).toBeVisible();
 
-  const headingBox = await page.getByRole("heading", { name: "A landing page that feels calm, clear, and premium." }).boundingBox();
-  const heroBox = await page.getByTestId("hero-mockup").boundingBox();
+  const headingBox = await page.getByRole("heading", { name: "Award-winning landing page" }).boundingBox();
+  const metricsBox = await page.getByTestId("hero-metrics").boundingBox();
 
   expect(headingBox).not.toBeNull();
-  expect(heroBox).not.toBeNull();
-  expect(heroBox!.x).toBeGreaterThan(headingBox!.x + 300);
+  expect(metricsBox).not.toBeNull();
+  expect(metricsBox!.x).toBeGreaterThan(headingBox!.x + 440);
 });
 
 test("landing page stacks on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 1300 });
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { name: "A landing page that feels calm, clear, and premium." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Award-winning landing page" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Contact us" })).toBeVisible();
 
-  const headingBox = await page.getByRole("heading", { name: "A landing page that feels calm, clear, and premium." }).boundingBox();
-  const heroBox = await page.getByTestId("hero-mockup").boundingBox();
+  const headingBox = await page.getByRole("heading", { name: "Award-winning landing page" }).boundingBox();
+  const metricsBox = await page.getByTestId("hero-metrics").boundingBox();
 
   expect(headingBox).not.toBeNull();
-  expect(heroBox).not.toBeNull();
-  expect(heroBox!.y).toBeGreaterThan(headingBox!.y + 220);
+  expect(metricsBox).not.toBeNull();
+  expect(metricsBox!.y).toBeGreaterThan(headingBox!.y + 250);
 });

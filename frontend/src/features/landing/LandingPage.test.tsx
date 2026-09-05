@@ -15,16 +15,16 @@ describe("LandingPage", () => {
   it("renders the main landing page sections", () => {
     render(<LandingPage />);
 
-    expect(screen.getByRole("heading", { name: "A landing page that feels calm, clear, and premium." })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Everything has a clear job." })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "A visual block that still stays simple." })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "The page sounds calm and confident." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Award-winning landing page" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "The page now feels like a designed campaign, not a starter template." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Bold enough to feel premium. Simple enough to maintain." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "A polished system with room for real images later." })).toBeInTheDocument();
   });
 
   it("keeps the primary call to action visible", () => {
     render(<LandingPage />);
 
-    expect(screen.getByRole("link", { name: "Start a project" })).toHaveAttribute("href", "#contact");
+    expect(screen.getByRole("link", { name: "Build the page" })).toHaveAttribute("href", "#contact");
     expect(screen.getByRole("link", { name: "Contact us" })).toHaveAttribute("href", "mailto:hello@example.com");
   });
 });

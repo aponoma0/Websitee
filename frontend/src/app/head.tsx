@@ -8,10 +8,7 @@ export default function Head() {
   return (
     <>
       <title>Award winning landing page</title>
-      <meta
-        content="A responsive Next.js landing page built with React, TypeScript, and Tailwind CSS."
-        name="description"
-      />
+      <meta content="A responsive Next.js landing page built with React, TypeScript, and Tailwind CSS." name="description" />
     </>
   );
 }
